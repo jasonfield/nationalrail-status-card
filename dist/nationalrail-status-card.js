@@ -506,7 +506,7 @@ var t,r,n=function(e,t){return i(t).format(e)},i=function(e){return new Intl.Dat
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ NationalrailMatrixCardEditor)
+/* harmony export */   "default": () => (/* binding */ NationalrailStatusCardEditor)
 /* harmony export */ });
 /* harmony import */ var lit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lit */ "./node_modules/lit/index.js");
 /* harmony import */ var _marcokreeft_ha_editor_formbuilder__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @marcokreeft/ha-editor-formbuilder */ "./node_modules/@marcokreeft/ha-editor-formbuilder/dist/index.js");
@@ -519,7 +519,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-class NationalrailMatrixCardEditor extends _marcokreeft_ha_editor_formbuilder__WEBPACK_IMPORTED_MODULE_1__["default"] {
+class NationalrailStatusCardEditor extends _marcokreeft_ha_editor_formbuilder__WEBPACK_IMPORTED_MODULE_1__["default"] {
 
   static get properties() {
     return { _hass: {}, _config: {} };
@@ -4017,7 +4017,7 @@ const cardName = 'nationalrail-status-card';
 const editorName = cardName + '-editor';
 customElements.define(editorName, _index_editor_js__WEBPACK_IMPORTED_MODULE_2__["default"]);
 
-class NationalrailMatrixCard extends lit__WEBPACK_IMPORTED_MODULE_0__.LitElement {
+class NationalrailStatusCard extends lit__WEBPACK_IMPORTED_MODULE_0__.LitElement {
 
   static styles = _style_js__WEBPACK_IMPORTED_MODULE_1__["default"];
   static getConfigElement() {
@@ -4105,15 +4105,15 @@ class NationalrailMatrixCard extends lit__WEBPACK_IMPORTED_MODULE_0__.LitElement
 
 
 
-customElements.define(cardName, NationalrailMatrixCard);
+customElements.define(cardName, NationalrailStatusCard);
 window.customCards = window.customCards || [];
 window.customCards.push({
   type: cardName,
-  name: 'Nationalrail Matrix Card',
+  name: 'Nationalrail Status Card',
   description: 'Card showing the status of the London Underground lines',
 });
 })();
 
 /******/ })()
 ;
-//# sourceMappingURL=nationalrail-matrix-card.js.map
+//# sourceMappingURL=nationalrail-status-card.js.map

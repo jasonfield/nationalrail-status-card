@@ -7,7 +7,7 @@ import { FormControlType } from '@marcokreeft/ha-editor-formbuilder/dist/interfa
 import { getEntitiesByDomain } from '@marcokreeft/ha-editor-formbuilder/dist/utils/entities.js';
 
 
-export default class NationalrailMatrixCardEditor extends EditorForm {
+export default class NationalrailStatusCardEditor extends EditorForm {
 
   static get properties() {
     return { _hass: {}, _config: {} };

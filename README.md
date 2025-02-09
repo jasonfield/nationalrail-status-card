@@ -1,4 +1,4 @@
-# Lovelace Nationalrail Matrix Card
+# Lovelace Nationalrail Status Card
 A status card for [Home Assistant](https://github.com/home-assistant/home-assistant) Lovelace UI for showing the current status of trains running from a station.
 
 The card works with entities from within the **sensor**  domain and is intended to be used with entities from the [National Rail API Integration](https://github.com/jfparis/homeassistant_nationalrail).

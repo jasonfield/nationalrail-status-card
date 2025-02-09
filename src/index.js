@@ -5,7 +5,7 @@ import {
 
 import style from './style.js';
 
-import NationalrailMatrixCardEditor from './index-editor.js';
+import NationalrailStatusCardEditor from './index-editor.js';
 import { destinationPresent, parseToTime, status, printETAs } from './utils.js';
 
 const exampleAtt = {
@@ -60,9 +60,9 @@ const exampleAtt2 = {
 
 const cardName = 'nationalrail-status-card';
 const editorName = cardName + '-editor';
-customElements.define(editorName, NationalrailMatrixCardEditor);
+customElements.define(editorName, NationalrailStatusCardEditor);
 
-class NationalrailMatrixCard extends LitElement {
+class NationalrailStatusCard extends LitElement {
 
   static styles = style;
   static getConfigElement() {
@@ -150,10 +150,10 @@ class NationalrailMatrixCard extends LitElement {
 
 
 
-customElements.define(cardName, NationalrailMatrixCard);
+customElements.define(cardName, NationalrailStatusCard);
 window.customCards = window.customCards || [];
 window.customCards.push({
   type: cardName,
-  name: 'Nationalrail Matrix Card',
+  name: 'Nationalrail Status Card',
   description: 'Card showing the status of the London Underground lines',
 });
