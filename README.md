@@ -1,7 +1,7 @@
 # Lovelace Nationalrail Matrix Card
-A status card for [Home Assistant](https://github.com/home-assistant/home-assistant) Lovelace UI for showing the London Underground lines and their current status.
+A status card for [Home Assistant](https://github.com/home-assistant/home-assistant) Lovelace UI for showing the current status of trains running from a station.
 
-The card works with entities from within the **sensor**  domain and is intended to be used with entities from the [London Underground Integration](https://www.home-assistant.io/integrations/london_underground/).
+The card works with entities from within the **sensor**  domain and is intended to be used with entities from the [National Rail API Integration](https://github.com/jfparis/homeassistant_nationalrail).
 
 ![Preview](images/sample.png)
 
@@ -60,25 +60,8 @@ We recommend looking at the [Example usage section](#example-usage) to understan
 | Name | Type | Default | Since | Description |
 |------|:----:|:-------:|:-----:|-------------|
 | type ***(required)*** | string |  | v0.0.1 | `custom:nationalrail-status-card`.
-| entities ***(required)*** | list |  | v0.0.1 | One or more sensor entities in a list, see [entities object](#entities-object) for additional entity options.
-
-
-#### Entities object
-Entities may be listed directly (as per `sensor.temperature` in the example below), or defined using
-properties of the Entity object detailed in the following table (as per `sensor.pressure` in the example below).
-
-| Name | Type | Default | Description |
-|------|:----:|:-------:|-------------|
-| entity ***(required)*** | string |  | Entity id of the sensor.
-| name | string |  | Set a custom display name, defaults to entity's friendly_name.
-
-```yaml
-entities:
-  - sensor.picadilly
-  - entity: sensor.central
-    name: Central Line
-  - sensor.victoria
-```
+| entity ***(required)*** | string |  | v0.0.1 | The entity being monitored
+| limit ***(optional)*** | number |  | v0.0.1 | The maximum number of trains to show at once. If absent then defaults to the API default.
 
 ## Development
 
