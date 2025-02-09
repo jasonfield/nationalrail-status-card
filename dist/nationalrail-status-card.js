@@ -3971,38 +3971,50 @@ const editorName = cardName + '-editor';
 customElements.define(editorName, _index_editor_js__WEBPACK_IMPORTED_MODULE_2__["default"]);
 
 class NationalrailStatusCard extends lit__WEBPACK_IMPORTED_MODULE_0__.LitElement {
+  static properties = {
+    attributes: {}
+  };
 
   static styles = _style_js__WEBPACK_IMPORTED_MODULE_1__["default"];
   static getConfigElement() {
     return document.createElement(editorName);
   }
+  set hass(hass) {
+    this._hass = hass;
+    this.updateAttributes();
+  }
+
   // required
   setConfig(config) {
     if (!config.entity) {
       throw new Error('You need to define an entity');
     }
     this._config = config;
+    this.updateAttributes();
   }
+  updateAttributes() {
+    if (!this._config || !this._hass) {
+      return;
+    }
 
-  render() {
-    const config = this._config;
-
-    const entity = config.entity;
+    const entity = this._config.entity;
     const entityIndex = entity?.entity ?? entity;
     if (!entityIndex) {
       return;
     }
 
-    const hassentity = this.hass.states[entityIndex]
-    const att = hassentity.attributes;
-    let trains = att?.trains ?? [];
-    if (config.limit) {
+    const hassentity = this._hass.states[entityIndex]
+    this.attributes = hassentity.attributes;
+  }
+  render() {
+    let trains = this.attributes?.trains ?? [];
+    if (this._config?.limit) {
       let limit = 0;
-      if (typeof config.limit === 'number') {
+      if (typeof this._config.limit === 'number') {
         limit = config.limit;
       }
-      else if (typeof config.limit === "string") {
-        limit = parseInt(config.limit);
+      else if (typeof this._config.limit === "string") {
+        limit = parseInt(this._config.limit);
       }
       if (limit > 0) {
         trains = trains.slice(0, limit);
@@ -4013,7 +4025,7 @@ class NationalrailStatusCard extends lit__WEBPACK_IMPORTED_MODULE_0__.LitElement
     return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)`<ha-card>
       <div id="content">
       <div id="nationalrail-status">
-      <h2>${att.station}</h3>
+      <h2>${this.attributes?.station}</h3>
       ${items}
       </div>
       </div>
@@ -4022,7 +4034,6 @@ class NationalrailStatusCard extends lit__WEBPACK_IMPORTED_MODULE_0__.LitElement
 
 
   renderTrain(train) {
-    console.log(train);
     const scheduled = (0,_utils_js__WEBPACK_IMPORTED_MODULE_3__.parseToTime)(train.scheduled);
     return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)`
     <div class="train">
