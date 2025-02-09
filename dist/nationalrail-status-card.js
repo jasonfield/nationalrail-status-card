@@ -3981,7 +3981,7 @@ class NationalrailStatusCard extends lit__WEBPACK_IMPORTED_MODULE_0__.LitElement
   }
   set hass(hass) {
     this._hass = hass;
-    this.updateAttributes();
+    this.updateProperties();
   }
 
   // required
@@ -3990,9 +3990,9 @@ class NationalrailStatusCard extends lit__WEBPACK_IMPORTED_MODULE_0__.LitElement
       throw new Error('You need to define an entity');
     }
     this._config = config;
-    this.updateAttributes();
+    this.updateProperties();
   }
-  updateAttributes() {
+  updateProperties() {
     if (!this._config || !this._hass) {
       return;
     }

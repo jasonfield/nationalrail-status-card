@@ -23,7 +23,7 @@ class NationalrailStatusCard extends LitElement {
   }
   set hass(hass) {
     this._hass = hass;
-    this.updateAttributes();
+    this.updateProperties();
   }
 
   // required
@@ -32,9 +32,9 @@ class NationalrailStatusCard extends LitElement {
       throw new Error('You need to define an entity');
     }
     this._config = config;
-    this.updateAttributes();
+    this.updateProperties();
   }
-  updateAttributes() {
+  updateProperties() {
     if (!this._config || !this._hass) {
       return;
     }
