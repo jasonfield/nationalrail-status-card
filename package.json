@@ -1,0 +1,34 @@
+{
+  "name": "nationalrail-status-card",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "lint": "eslint  --fix ./src",
+    "watch": "webpack --watch --config webpack/config.dev.js",
+    "build": "webpack --config webpack/config.prod.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.26.4",
+    "@babel/core": "^7.26.7",
+    "@babel/preset-env": "^7.26.7",
+    "babel-loader": "^9.2.1",
+    "eslint": "^9.19.0",
+    "ts-loader": "^9.5.2",
+    "typescript": "^5.7.3",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^6.0.1",
+    "webpack-merge": "^6.0.1"
+  },
+  "dependencies": {
+    "@lit-labs/scoped-registry-mixin": "^1.0.3",
+    "@marcokreeft/ha-editor-formbuilder": "^2024.9.1",
+    "@mdi/js": "^7.4.47",
+    "custom-card-helpers": "^1.9.0",
+    "lit": "^3.2.1",
+    "lit-html": "^3.2.1",
+    "sortablejs": "^1.15.6"
+  }
+}
