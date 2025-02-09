@@ -664,7 +664,10 @@ const destinationPresent = (dest) => {
 
 const status = (train) => {
   if (train.perturbation) {
-    return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)`<span class="peturbed">${train.expected}</span>`;
+    if (!Date.parse(train.expected)) {
+      return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)`<span class="peturbed">${train.expected}</span>`;
+    }
+    return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)`<span class="peturbed">Expected ${parseToTime(train.expected)}</span>`;
   }
   else if (train.scheduled !== train.expected) {
     return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)`<span class="warning">Expected ${parseToTime(train.expected)}</span>`;
@@ -3962,56 +3965,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-const exampleAtt = {
-  "trains": [
-    {
-      "scheduled": "2025-02-08T23:57:00+00:00",
-      "expected": "2025-02-08T23:57:00+00:00",
-      "terminus": "Epsom",
-      "destinations": [
-        {
-          "name": "Hackbridge",
-          "time_at_destination": "2025-02-09T00:10:00+00:00",
-          "scheduled_time_at_destination": "2025-02-09T00:10:00+00:00"
-        }
-      ],
-      "platform": "1",
-      "perturbation": false
-    }
-  ],
-  "station": "Balham",
-  "name": "train_schedule_BAL_HCB",
-  "description": "Departing trains schedule at Balham station",
-  "friendly_name": "Train schedule at Balham station for HCB",
-  "next_train_scheduled": "2025-02-08T23:57:00+00:00",
-  "next_train_expected": "2025-02-08T23:57:00+00:00",
-  "destinations": [
-    {
-      "name": "Hackbridge",
-      "time_at_destination": "2025-02-09T00:10:00+00:00",
-      "scheduled_time_at_destination": "2025-02-09T00:10:00+00:00"
-    }
-  ],
-  "terminus": "Epsom",
-  "platform": "1",
-  "perturbations": false,
-  "attribution": "This uses National Rail Darwin Data Feeds"
-}
-const exampleAtt2 = {
-  "trains": [],
-  "station": "Farringdon",
-  "name": "train_schedule_ZFD_HCB",
-  "description": "Departing trains schedule at Farringdon station",
-  "friendly_name": "Train schedule at Farringdon station for HCB",
-  "next_train_scheduled": null,
-  "next_train_expected": null,
-  "destinations": null,
-  "terminus": null,
-  "platform": null,
-  "perturbations": false,
-  "attribution": "This uses National Rail Darwin Data Feeds"
-}
 
 const cardName = 'nationalrail-status-card';
 const editorName = cardName + '-editor';

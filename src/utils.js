@@ -35,7 +35,10 @@ export const destinationPresent = (dest) => {
 
 export const status = (train) => {
   if (train.perturbation) {
-    return html`<span class="peturbed">${train.expected}</span>`;
+    if (!Date.parse(train.expected)) {
+      return html`<span class="peturbed">${train.expected}</span>`;
+    }
+    return html`<span class="peturbed">Expected ${parseToTime(train.expected)}</span>`;
   }
   else if (train.scheduled !== train.expected) {
     return html`<span class="warning">Expected ${parseToTime(train.expected)}</span>`;
