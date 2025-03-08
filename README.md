@@ -9,12 +9,18 @@ The card works with entities from within the **sensor**  domain and is intended 
 
 ### HACS (recommended) 
 
-This card is available in [HACS](https://hacs.xyz/) (Home Assistant Community Store).
+This card is not yet available in [HACS](https://hacs.xyz/) (Home Assistant Community Store) directly but can still be added manually.
 <small>*HACS is a third party community store and is not included in Home Assistant out of the box.*</small>
+
+1. Open HACS and navigate to Custom Repositories.
+
+2. Select `Dashboard` as the Type and enter `https://github.com/ChevronTango/nationalrail-status-card` as the repository. Save and refresh.
+
+3. Find `Nationalrail Status Card` in the HACS store and select install.
 
 ### Manual install
 
-1. Download and copy `nationalrail-status-card.js` from the [latest release](https://github.com/ChevronTango/ha-nationalrail-status-card/releases/latest) into your `config/www` directory.
+1. Download and copy `nationalrail-status-card.js` from the [latest release](https://github.com/ChevronTango/nationalrail-status-card/releases/latest) into your `config/www` directory.
 
 2. Add the resource reference as decribed below.
 
