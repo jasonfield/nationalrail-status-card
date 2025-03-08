@@ -10,26 +10,24 @@ export const parseToTime = (input) => {
   return h + ':' + m;
 }
 
-const dest = {
-  "name": "Hackbridge",
-  "time_at_destination": "2025-02-09T00:10:00+00:00",
-  "scheduled_time_at_destination": "2025-02-09T00:10:00+00:00"
-}
-
-export const destinationPresent = (dest) => {
-
+export const destinationPresent = (dest, start) => {
   const time_at_destination = parseToTime(dest.time_at_destination);
   const scheduled_time_at_destination = parseToTime(dest.scheduled_time_at_destination);
-  let output = `${dest.name} (${scheduled_time_at_destination}`
+  let output = `${dest.name} (`
   if (!Date.parse(dest.time_at_destination)) {
-    output += ` ${dest.time_at_destination})`
+    output += `${scheduled_time_at_destination} ${dest.time_at_destination}`
   }
   else if (scheduled_time_at_destination !== time_at_destination) {
-    output += ` ${time_at_destination})`
+    output += `${time_at_destination}`
   }
   else {
-    output += `)`
+    output += `${scheduled_time_at_destination}`
   }
+  const length = lengthJourney(start, dest.time_at_destination, dest.scheduled_time_at_destination);
+  if (length !== '?') {
+    output += ' - ' + length + 'm';
+  }
+  output += ')';
   return output;
 }
 
@@ -58,17 +56,4 @@ export const lengthJourney = (start, end, scheduled) => {
   const d = endTime - startTime;
 
   return d / 60 / 1000;
-}
-
-
-export const printETAs = (destinations, start) => {
-  if (destinations.length > 1) {
-    return destinations.map(dest => `${dest.name} ${lengthJourney(start, dest.time_at_destination, dest.scheduled_time_at_destination)}m`).join(', ');
-  }
-  else if (destinations.length == 1) {
-    return lengthJourney(start, destinations[0].time_at_destination, destinations[0].scheduled_time_at_destination) + 'm'
-  }
-  else {
-    return
-  }
 }

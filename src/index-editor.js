@@ -7,6 +7,12 @@ import { FormControlType } from '@marcokreeft/ha-editor-formbuilder/dist/interfa
 import { getEntitiesByDomain } from '@marcokreeft/ha-editor-formbuilder/dist/utils/entities.js';
 
 
+function filterTrainEntities(_hass, items) {
+  return items.filter(item => {
+    return item.value.startsWith("sensor.train_schedule");
+  });
+}
+
 export default class NationalrailStatusCardEditor extends EditorForm {
 
   static get properties() {
@@ -22,7 +28,7 @@ export default class NationalrailStatusCardEditor extends EditorForm {
       return html``;
     }
     return this.renderForm([
-      { controls: [{ label: "Entity", configValue: "entity", type: FormControlType.Dropdown, items: getEntitiesByDomain(this._hass, "sensor") }] },
+      { controls: [{ label: "Entity", configValue: "entity", type: FormControlType.Dropdown, items: filterTrainEntities(this._hass, getEntitiesByDomain(this._hass, "sensor")) }] },
       { controls: [{ label: "Number of trains to shown", configValue: "limit", type: FormControlType.Textbox }] },
     ])
   };

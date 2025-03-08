@@ -57,8 +57,13 @@ Else, if you prefer the graphical editor, use the menu to add the resource:
 
 ## Using the card
 
-We recommend looking at the [Example usage section](#example-usage) to understand the basics to configure this card.
-(also) pay attention to the **required** options mentioned below.
+1. Install the [National Rail API Integration](https://github.com/jfparis/homeassistant_nationalrail).
+
+2. Add a new device from the National Rail API Integration with a source and destination station. Only trains with a direct connection from the source to the destination will appear. Trains that require an interchange will not display.
+
+3. In your dashboard add a New Card and select the `National Rail Status Card`.
+
+4. Select the entity for your station and destination, and optionally choose the number of trains to display. Click Save.
 
 ### Options
 

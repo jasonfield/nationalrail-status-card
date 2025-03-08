@@ -6,7 +6,7 @@ import {
 import style from './style.js';
 
 import NationalrailStatusCardEditor from './index-editor.js';
-import { destinationPresent, parseToTime, status, printETAs } from './utils.js';
+import { destinationPresent, parseToTime, status } from './utils.js';
 
 const cardName = 'nationalrail-status-card';
 const editorName = cardName + '-editor';
@@ -62,8 +62,12 @@ class NationalrailStatusCard extends LitElement {
         trains = trains.slice(0, limit);
       }
     }
-
-    const items = trains.map(this.renderTrain);
+    let items = html`
+    <h3>No trains scheduled</h3>
+    `
+    if (trains && trains.length > 0) {
+      items = trains.map(this.renderTrain);
+    }
     return html`<ha-card>
       <div id="content">
       <div id="nationalrail-status">
@@ -94,15 +98,7 @@ class NationalrailStatusCard extends LitElement {
         tabindex="-1">
         <span class="terminus">${train.terminus}</span>
       </h3>
-      <h4>Calling at ${train.destinations.map(destinationPresent).join(", ")}</h4 >
-      
-      <div class="details">
-        <time 
-          tabindex="-1"
-          role="time">
-          <span class="detail-etas" aria-hidden="true">${printETAs(train.destinations, train.expected)}</span>
-        </time>
-      </div>
+      <h4>Calling at ${train.destinations.map(dest => destinationPresent(dest, train.expected)).join(", ")}</h4 >
     </div >
       `
   }

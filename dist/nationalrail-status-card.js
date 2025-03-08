@@ -519,6 +519,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+function filterTrainEntities(_hass, items) {
+  return items.filter(item => {
+    return item.value.startsWith("sensor.train_schedule");
+  });
+}
+
 class NationalrailStatusCardEditor extends _marcokreeft_ha_editor_formbuilder__WEBPACK_IMPORTED_MODULE_1__["default"] {
 
   static get properties() {
@@ -534,7 +540,7 @@ class NationalrailStatusCardEditor extends _marcokreeft_ha_editor_formbuilder__W
       return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)``;
     }
     return this.renderForm([
-      { controls: [{ label: "Entity", configValue: "entity", type: _marcokreeft_ha_editor_formbuilder_dist_interfaces_js__WEBPACK_IMPORTED_MODULE_2__.FormControlType.Dropdown, items: (0,_marcokreeft_ha_editor_formbuilder_dist_utils_entities_js__WEBPACK_IMPORTED_MODULE_3__.getEntitiesByDomain)(this._hass, "sensor") }] },
+      { controls: [{ label: "Entity", configValue: "entity", type: _marcokreeft_ha_editor_formbuilder_dist_interfaces_js__WEBPACK_IMPORTED_MODULE_2__.FormControlType.Dropdown, items: filterTrainEntities(this._hass, (0,_marcokreeft_ha_editor_formbuilder_dist_utils_entities_js__WEBPACK_IMPORTED_MODULE_3__.getEntitiesByDomain)(this._hass, "sensor")) }] },
       { controls: [{ label: "Number of trains to shown", configValue: "limit", type: _marcokreeft_ha_editor_formbuilder_dist_interfaces_js__WEBPACK_IMPORTED_MODULE_2__.FormControlType.Textbox }] },
     ])
   };
@@ -599,13 +605,13 @@ h4 {
   font-weight: 500;
 }
 .peturbed {
-color: red;
+color: #ff4141;
 }
 .warning {
-color: yellow;
+color: #f3f345;
 }
 .good {
-color: green;
+color: #52ff52;
 }
 `;
 
@@ -625,7 +631,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   destinationPresent: () => (/* binding */ destinationPresent),
 /* harmony export */   lengthJourney: () => (/* binding */ lengthJourney),
 /* harmony export */   parseToTime: () => (/* binding */ parseToTime),
-/* harmony export */   printETAs: () => (/* binding */ printETAs),
 /* harmony export */   status: () => (/* binding */ status)
 /* harmony export */ });
 /* harmony import */ var lit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lit */ "./node_modules/lit/index.js");
@@ -639,26 +644,24 @@ const parseToTime = (input) => {
   return h + ':' + m;
 }
 
-const dest = {
-  "name": "Hackbridge",
-  "time_at_destination": "2025-02-09T00:10:00+00:00",
-  "scheduled_time_at_destination": "2025-02-09T00:10:00+00:00"
-}
-
-const destinationPresent = (dest) => {
-
+const destinationPresent = (dest, start) => {
   const time_at_destination = parseToTime(dest.time_at_destination);
   const scheduled_time_at_destination = parseToTime(dest.scheduled_time_at_destination);
-  let output = `${dest.name} (${scheduled_time_at_destination}`
+  let output = `${dest.name} (`
   if (!Date.parse(dest.time_at_destination)) {
-    output += ` ${dest.time_at_destination})`
+    output += `${scheduled_time_at_destination} ${dest.time_at_destination}`
   }
   else if (scheduled_time_at_destination !== time_at_destination) {
-    output += ` ${time_at_destination})`
+    output += `${time_at_destination}`
   }
   else {
-    output += `)`
+    output += `${scheduled_time_at_destination}`
   }
+  const length = lengthJourney(start, dest.time_at_destination, dest.scheduled_time_at_destination);
+  if (length !== '?') {
+    output += ' - ' + length + 'm';
+  }
+  output += ')';
   return output;
 }
 
@@ -689,18 +692,6 @@ const lengthJourney = (start, end, scheduled) => {
   return d / 60 / 1000;
 }
 
-
-const printETAs = (destinations, start) => {
-  if (destinations.length > 1) {
-    return destinations.map(dest => `${dest.name} ${lengthJourney(start, dest.time_at_destination, dest.scheduled_time_at_destination)}m`).join(', ');
-  }
-  else if (destinations.length == 1) {
-    return lengthJourney(start, destinations[0].time_at_destination, destinations[0].scheduled_time_at_destination) + 'm'
-  }
-  else {
-    return
-  }
-}
 
 /***/ }),
 
@@ -4020,8 +4011,12 @@ class NationalrailStatusCard extends lit__WEBPACK_IMPORTED_MODULE_0__.LitElement
         trains = trains.slice(0, limit);
       }
     }
-
-    const items = trains.map(this.renderTrain);
+    let items = (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)`
+    <h3>No trains scheduled</h3>
+    `
+    if (trains && trains.length > 0) {
+      items = trains.map(this.renderTrain);
+    }
     return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)`<ha-card>
       <div id="content">
       <div id="nationalrail-status">
@@ -4052,15 +4047,7 @@ class NationalrailStatusCard extends lit__WEBPACK_IMPORTED_MODULE_0__.LitElement
         tabindex="-1">
         <span class="terminus">${train.terminus}</span>
       </h3>
-      <h4>Calling at ${train.destinations.map(_utils_js__WEBPACK_IMPORTED_MODULE_3__.destinationPresent).join(", ")}</h4 >
-      
-      <div class="details">
-        <time 
-          tabindex="-1"
-          role="time">
-          <span class="detail-etas" aria-hidden="true">${(0,_utils_js__WEBPACK_IMPORTED_MODULE_3__.printETAs)(train.destinations, train.expected)}</span>
-        </time>
-      </div>
+      <h4>Calling at ${train.destinations.map(dest => (0,_utils_js__WEBPACK_IMPORTED_MODULE_3__.destinationPresent)(dest, train.expected)).join(", ")}</h4 >
     </div >
       `
   }

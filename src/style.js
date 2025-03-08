@@ -44,13 +44,13 @@ h4 {
   font-weight: 500;
 }
 .peturbed {
-color: red;
+color: #ff4141;
 }
 .warning {
-color: yellow;
+color: #f3f345;
 }
 .good {
-color: green;
+color: #52ff52;
 }
 `;
 
