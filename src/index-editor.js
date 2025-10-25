@@ -32,6 +32,7 @@ export default class NationalrailStatusCardEditor extends EditorForm {
       { controls: [{ label: "Number of trains to show", configValue: "limit", type: FormControlType.Textbox }] },
       { controls: [{ label: "Maximum journey duration", configValue: "maxDuration", type: FormControlType.Textbox }] },
       { controls: [{ label: "Minimum time until departure", configValue: "minTimeToDeparture", type: FormControlType.Textbox }] },
+      { controls: [{ label: "Show station title", configValue: "showStationTitle", type: FormControlType.Textbox }] },
     ])
   };
 }
