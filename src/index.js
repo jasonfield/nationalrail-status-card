@@ -93,7 +93,7 @@ class NationalrailStatusCard extends LitElement {
 
     let header = "";
     if(this._config.showStationTitle == null || this._config.showStationTitle === true) {
-        header = "<h2>${this.attributes?.station}</h2>"
+        header = html`<h2>${this.attributes?.station}</h2>`
     }
 
     return html`<ha-card>
