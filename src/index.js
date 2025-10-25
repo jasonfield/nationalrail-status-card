@@ -6,7 +6,7 @@ import {
 import style from './style.js';
 
 import NationalrailStatusCardEditor from './index-editor.js';
-import { destinationPresent, parseToTime, status } from './utils.js';
+import {destinationPresent, lengthJourney, parseToTime, status} from './utils.js';
 
 const cardName = 'nationalrail-status-card';
 const editorName = cardName + '-editor';
@@ -50,19 +50,41 @@ class NationalrailStatusCard extends LitElement {
   }
   render() {
     let trains = this.attributes?.trains ?? [];
-    if (this._config?.limit) {
-      let limit = 0;
-      if (typeof this._config.limit === 'number') {
-        limit = config.limit;
-      }
-      else if (typeof this._config.limit === "string") {
-        limit = parseInt(this._config.limit);
-      }
-      if (limit > 0) {
-        trains = trains.slice(0, limit);
-      }
+
+    if(this._config?.maxDuration) {
+        let maxDuration = parseInt(this._config.maxDuration);
+
+        trains = trains.filter(train => {
+            let dest = train.destinations[0];
+            let start = train.expected;
+
+            return lengthJourney(start, dest.time_at_destination, dest.scheduled_time_at_destination)    < maxDuration;
+        })
     }
-    let items = html`
+
+    if(this._config?.minTimeToDeparture) {
+        let timeToDeparture = parseInt(this._config.minTimeToDeparture);
+
+        trains = trains.filter(train => {
+            return ((new Date(train.expected) - new Date()) / (60 * 1000)) > timeToDeparture;
+        })
+    }
+
+      if (this._config?.limit) {
+          let limit = 0;
+          if (typeof this._config.limit === 'number') {
+              limit = this._config.limit;
+          }
+          else if (typeof this._config.limit === "string") {
+              limit = parseInt(this._config.limit);
+          }
+          if (limit > 0) {
+              trains = trains.slice(0, limit);
+          }
+      }
+
+
+      let items = html`
     <h3>No trains scheduled</h3>
     `
     if (trains && trains.length > 0) {

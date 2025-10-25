@@ -29,7 +29,9 @@ export default class NationalrailStatusCardEditor extends EditorForm {
     }
     return this.renderForm([
       { controls: [{ label: "Entity", configValue: "entity", type: FormControlType.Dropdown, items: filterTrainEntities(this._hass, getEntitiesByDomain(this._hass, "sensor")) }] },
-      { controls: [{ label: "Number of trains to shown", configValue: "limit", type: FormControlType.Textbox }] },
+      { controls: [{ label: "Number of trains to show", configValue: "limit", type: FormControlType.Textbox }] },
+      { controls: [{ label: "Maximum journey duration", configValue: "maxDuration", type: FormControlType.Textbox }] },
+      { controls: [{ label: "Minimum time until departure", configValue: "minTimeToDeparture", type: FormControlType.Textbox }] },
     ])
   };
 }
